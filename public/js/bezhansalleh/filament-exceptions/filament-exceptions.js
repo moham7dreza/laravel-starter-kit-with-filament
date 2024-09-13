@@ -115,6 +115,7 @@ var _self =
                                 document.querySelectorAll(a.selector),
                             l = 0;
                         (r = i[l++]);
+
                     )
                         n.highlightElement(r, e === !0, a.callback);
                 },
@@ -505,14 +506,12 @@ Prism.languages.sql = {
     function e(e, t) {
         return Array.prototype.slice.call((t || document).querySelectorAll(e));
     }
-
     function t(e, t) {
         return (
             (t = " " + t + " "),
             (" " + e.className + " ").replace(/[\n\t]/g, " ").indexOf(t) > -1
         );
     }
-
     function n(e, n, i) {
         for (
             var o,
@@ -522,6 +521,7 @@ Prism.languages.sql = {
                 c = d(getComputedStyle(e).lineHeight),
                 s = 0;
             (o = a[s++]);
+
         ) {
             o = o.split("-");
             var u = +o[0],
@@ -539,7 +539,6 @@ Prism.languages.sql = {
                     : (e.querySelector("code") || e).appendChild(h);
         }
     }
-
     function i() {
         var t = location.hash.slice(1);
         e(".temporary.line-highlight").forEach(function (e) {
@@ -557,7 +556,6 @@ Prism.languages.sql = {
                     .scrollIntoView());
         }
     }
-
     if (
         "undefined" != typeof self &&
         self.Prism &&

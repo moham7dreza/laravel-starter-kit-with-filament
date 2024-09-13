@@ -12,6 +12,7 @@
         "filament/filament": "^3.2",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
+        "laravel/octane": "^2.5",
         "laravel/tinker": "^2.9",
         "modules/filament": "*",
         "modules/monitor": "*"
@@ -40,6 +41,7 @@
         }
     },
     "scripts": {
+        "start": "@php artisan octane:start",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
