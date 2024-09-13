@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "filament/filament": "^3.2",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/octane": "^2.5",

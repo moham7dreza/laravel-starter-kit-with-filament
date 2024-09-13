@@ -5,6 +5,7 @@
     "version": "1.0",
     "license": "proprietary",
     "require": {
+        "filament/filament": "^3.2",
         "awcodes/filament-sticky-header": "^2.0",
         "awcodes/filament-versions": "^2.0",
         "awcodes/light-switch": "^1.0",

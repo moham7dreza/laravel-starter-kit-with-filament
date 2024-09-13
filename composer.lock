@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75b0bb9b216525e42059ad0620deb169",
+    "content-hash": "b80249f39d516e4f63b57b3103ddf3f2",
     "packages": [
         {
             "name": "akaunting/laravel-firewall",
@@ -6895,7 +6895,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/filament",
-                "reference": "f97a699669e8fc4461f4ebd53084b2d03b62ce7d"
+                "reference": "f57dcfca82999b85dc1da0d0469d857059b9c8df"
             },
             "require": {
                 "awcodes/filament-sticky-header": "^2.0",
@@ -6912,6 +6912,7 @@
                 "chrisreedio/socialment": "^3.4",
                 "croustibat/filament-jobs-monitor": "^2.1",
                 "dotswan/filament-map-picker": "^1.0",
+                "filament/filament": "^3.2",
                 "hasnayeen/themes": "^3.0",
                 "husam-tariq/filament-database-schedule": "^2.0",
                 "leandrocfe/filament-apex-charts": "^3.0",
