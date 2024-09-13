@@ -1,6 +1,8 @@
 <?php
 
+use Modules\Filament\Providers\Filament\AdminPanelProvider;
+
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\AdminPanelProvider::class,
+    AdminPanelProvider::class,
 ];

@@ -9,11 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "modules/monitor": "*",
         "filament/filament": "^3.2",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "modules/filament": "*",
+        "modules/monitor": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -24,6 +25,9 @@
         "phpunit/phpunit": "^11.0.1"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/helpers.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
