@@ -17,7 +17,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "modules/filament": "*",
-        "modules/monitor": "*"
+        "modules/monitor": "*",
+        "shetabit/payment": "^5.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "*",
