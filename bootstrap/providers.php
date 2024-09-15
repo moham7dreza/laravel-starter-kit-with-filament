@@ -1,8 +1,8 @@
 <?php
 
-use Modules\Filament\Providers\Filament\AdminPanelProvider;
+use Amiriun\SMS\SMSServiceProvider;
 
 return [
     App\Providers\AppServiceProvider::class,
-    AdminPanelProvider::class,
+    SMSServiceProvider::class,
 ];

@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "amiriun/sms": "*",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/octane": "^2.5",
@@ -85,7 +86,7 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
         {
