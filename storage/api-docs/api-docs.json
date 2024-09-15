@@ -1,0 +1,33 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Api Routes List",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/v1/test": {
+            "get": {
+                "tags": [
+                    "Unknown Module"
+                ],
+                "description": "test",
+                "operationId": "cd2e5334ce9a9a5508b9915d5fb38e52",
+                "responses": {
+                    "200": {
+                        "description": "Its Ok",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Unknown Module",
+            "description": "Unknown Module"
+        }
+    ]
+}

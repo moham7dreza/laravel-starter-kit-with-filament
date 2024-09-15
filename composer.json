@@ -10,9 +10,11 @@
     "require": {
         "php": "^8.2",
         "amiriun/sms": "*",
+        "darkaonline/l5-swagger": "^8.6",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/octane": "^2.5",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "modules/filament": "*",
         "modules/monitor": "*"
@@ -49,7 +51,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
             "@php artisan filament:upgrade",
-            "@php artisan modules:sync"
+            "@php artisan modules:sync",
+            "@php artisan l5-swagger:generate"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",

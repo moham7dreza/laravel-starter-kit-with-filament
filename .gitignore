@@ -26,3 +26,5 @@ frankenphp-worker.php
 
 .phpstorm.meta.php
 _ide_helper.php
+
+storage/debugbar
