@@ -3,9 +3,9 @@ var _self =
         "undefined" != typeof window
             ? window
             : "undefined" != typeof WorkerGlobalScope &&
-            self instanceof WorkerGlobalScope
-                ? self
-                : {},
+              self instanceof WorkerGlobalScope
+            ? self
+            : {},
     Prism = (function () {
         var e = /\blang(?:uage)?-(\w+)\b/i,
             t = 0,
@@ -15,11 +15,11 @@ var _self =
                         return e instanceof a
                             ? new a(e.type, n.util.encode(e.content), e.alias)
                             : "Array" === n.util.type(e)
-                                ? e.map(n.util.encode)
-                                : e
-                                    .replace(/&/g, "&amp;")
-                                    .replace(/</g, "&lt;")
-                                    .replace(/\u00a0/g, " ");
+                            ? e.map(n.util.encode)
+                            : e
+                                  .replace(/&/g, "&amp;")
+                                  .replace(/</g, "&lt;")
+                                  .replace(/\u00a0/g, " ");
                     },
                     type: function (e) {
                         return Object.prototype.toString
@@ -29,10 +29,10 @@ var _self =
                     objId: function (e) {
                         return (
                             e.__id ||
-                            Object.defineProperty(e, "__id", {
-                                value: ++t,
-                            }),
-                                e.__id
+                                Object.defineProperty(e, "__id", {
+                                    value: ++t,
+                                }),
+                            e.__id
                         );
                     },
                     clone: function (e) {
@@ -42,7 +42,7 @@ var _self =
                                 var a = {};
                                 for (var r in e)
                                     e.hasOwnProperty(r) &&
-                                    (a[r] = n.util.clone(e[r]));
+                                        (a[r] = n.util.clone(e[r]));
                                 return a;
                             case "Array":
                                 return (
@@ -82,22 +82,22 @@ var _self =
                             n.languages.DFS(n.languages, function (t, n) {
                                 n === r[e] && t != e && (this[t] = o);
                             }),
-                                (r[e] = o)
+                            (r[e] = o)
                         );
                     },
                     DFS: function (e, t, a, r) {
                         r = r || {};
                         for (var i in e)
                             e.hasOwnProperty(i) &&
-                            (t.call(e, i, e[i], a || i),
+                                (t.call(e, i, e[i], a || i),
                                 "Object" !== n.util.type(e[i]) ||
                                 r[n.util.objId(e[i])]
                                     ? "Array" !== n.util.type(e[i]) ||
-                                    r[n.util.objId(e[i])] ||
-                                    ((r[n.util.objId(e[i])] = !0),
-                                        n.languages.DFS(e[i], t, i, r))
+                                      r[n.util.objId(e[i])] ||
+                                      ((r[n.util.objId(e[i])] = !0),
+                                      n.languages.DFS(e[i], t, i, r))
                                     : ((r[n.util.objId(e[i])] = !0),
-                                        n.languages.DFS(e[i], t, null, r)));
+                                      n.languages.DFS(e[i], t, null, r)));
                     },
                 },
                 plugins: {},
@@ -120,28 +120,28 @@ var _self =
                         n.highlightElement(r, e === !0, a.callback);
                 },
                 highlightElement: function (t, a, r) {
-                    for (var i, l, o = t; o && !e.test(o.className);)
+                    for (var i, l, o = t; o && !e.test(o.className); )
                         o = o.parentNode;
                     o &&
-                    ((i = (o.className.match(e) || [
-                        ,
-                        "",
-                    ])[1].toLowerCase()),
+                        ((i = (o.className.match(e) || [
+                            ,
+                            "",
+                        ])[1].toLowerCase()),
                         (l = n.languages[i])),
                         (t.className =
                             t.className.replace(e, "").replace(/\s+/g, " ") +
                             " language-" +
                             i),
                         (o = t.parentNode),
-                    /pre/i.test(o.nodeName) &&
-                    (o.className =
-                        o.className
-                            .replace(e, "")
-                            .replace(/\s+/g, " ") +
-                        " language-" +
-                        i);
+                        /pre/i.test(o.nodeName) &&
+                            (o.className =
+                                o.className
+                                    .replace(e, "")
+                                    .replace(/\s+/g, " ") +
+                                " language-" +
+                                i);
                     var s = t.textContent,
-                        u = {element: t, language: i, grammar: l, code: s};
+                        u = { element: t, language: i, grammar: l, code: s };
                     if (
                         (n.hooks.run("before-sanity-check", u),
                         !u.code || !u.grammar)
@@ -155,7 +155,7 @@ var _self =
                             (u.highlightedCode = e.data),
                                 n.hooks.run("before-insert", u),
                                 (u.element.innerHTML = u.highlightedCode),
-                            r && r.call(u.element),
+                                r && r.call(u.element),
                                 n.hooks.run("after-highlight", u),
                                 n.hooks.run("complete", u);
                         }),
@@ -174,7 +174,7 @@ var _self =
                         )),
                             n.hooks.run("before-insert", u),
                             (u.element.innerHTML = u.highlightedCode),
-                        r && r.call(t),
+                            r && r.call(t),
                             n.hooks.run("after-highlight", u),
                             n.hooks.run("complete", u);
                 },
@@ -225,8 +225,8 @@ var _self =
                                         if (!b && h && m != r.length - 1) {
                                             if (
                                                 ((u.lastIndex = y),
-                                                    (b = u.exec(e)),
-                                                    !b)
+                                                (b = u.exec(e)),
+                                                !b)
                                             )
                                                 break;
                                             for (
@@ -241,7 +241,7 @@ var _self =
                                                 ++A
                                             )
                                                 (P += r[A].length),
-                                                w >= P && (++m, (y = P));
+                                                    w >= P && (++m, (y = P));
                                             if (
                                                 r[m] instanceof a ||
                                                 r[A - 1].greedy
@@ -268,7 +268,7 @@ var _self =
                                                 h
                                             );
                                             j.push(N),
-                                            S && j.push(S),
+                                                S && j.push(S),
                                                 Array.prototype.splice.apply(
                                                     r,
                                                     j
@@ -289,7 +289,7 @@ var _self =
                     run: function (e, t) {
                         var a = n.hooks.all[e];
                         if (a && a.length)
-                            for (var r, i = 0; (r = a[i++]);) r(t);
+                            for (var r, i = 0; (r = a[i++]); ) r(t);
                     },
                 },
             }),
@@ -320,7 +320,7 @@ var _self =
                 };
                 if (
                     ("comment" == i.type && (i.attributes.spellcheck = "true"),
-                        e.alias)
+                    e.alias)
                 ) {
                     var l =
                         "Array" === n.util.type(e.alias) ? e.alias : [e.alias];
@@ -349,48 +349,48 @@ var _self =
                     ">"
                 );
             }),
-                !_self.document)
+            !_self.document)
         )
             return _self.addEventListener
                 ? (_self.addEventListener(
-                    "message",
-                    function (e) {
-                        var t = JSON.parse(e.data),
-                            a = t.language,
-                            r = t.code,
-                            i = t.immediateClose;
-                        _self.postMessage(n.highlight(r, n.languages[a], a)),
-                        i && _self.close();
-                    },
-                    !1
-                ),
-                    _self.Prism)
+                      "message",
+                      function (e) {
+                          var t = JSON.parse(e.data),
+                              a = t.language,
+                              r = t.code,
+                              i = t.immediateClose;
+                          _self.postMessage(n.highlight(r, n.languages[a], a)),
+                              i && _self.close();
+                      },
+                      !1
+                  ),
+                  _self.Prism)
                 : _self.Prism;
         var r =
             document.currentScript ||
             [].slice.call(document.getElementsByTagName("script")).pop();
         return (
             r &&
-            ((n.filename = r.src),
-            document.addEventListener &&
-            !r.hasAttribute("data-manual") &&
-            ("loading" !== document.readyState
-                ? window.requestAnimationFrame
-                    ? window.requestAnimationFrame(n.highlightAll)
-                    : window.setTimeout(n.highlightAll, 16)
-                : document.addEventListener(
-                    "DOMContentLoaded",
-                    n.highlightAll
-                ))),
-                _self.Prism
+                ((n.filename = r.src),
+                document.addEventListener &&
+                    !r.hasAttribute("data-manual") &&
+                    ("loading" !== document.readyState
+                        ? window.requestAnimationFrame
+                            ? window.requestAnimationFrame(n.highlightAll)
+                            : window.setTimeout(n.highlightAll, 16)
+                        : document.addEventListener(
+                              "DOMContentLoaded",
+                              n.highlightAll
+                          ))),
+            _self.Prism
         );
     })();
 "undefined" != typeof module && module.exports && (module.exports = Prism),
-"undefined" != typeof global && (global.Prism = Prism);
+    "undefined" != typeof global && (global.Prism = Prism);
 Prism.languages.clike = {
     comment: [
-        {pattern: /(^|[^\\])\/\*[\w\W]*?\*\//, lookbehind: !0},
-        {pattern: /(^|[^\\:])\/\/.*/, lookbehind: !0},
+        { pattern: /(^|[^\\])\/\*[\w\W]*?\*\//, lookbehind: !0 },
+        { pattern: /(^|[^\\:])\/\/.*/, lookbehind: !0 },
     ],
     string: {
         pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
@@ -400,7 +400,7 @@ Prism.languages.clike = {
         pattern:
             /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
         lookbehind: !0,
-        inside: {punctuation: /(\.|\\)/},
+        inside: { punctuation: /(\.|\\)/ },
     },
     keyword:
         /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
@@ -433,75 +433,75 @@ Prism.languages.clike = {
         package: {
             pattern: /(\\|namespace\s+|use\s+)[\w\\]+/,
             lookbehind: !0,
-            inside: {punctuation: /\\/},
+            inside: { punctuation: /\\/ },
         },
     }),
     Prism.languages.insertBefore("php", "operator", {
-        property: {pattern: /(->)[\w]+/, lookbehind: !0},
+        property: { pattern: /(->)[\w]+/, lookbehind: !0 },
     }),
-Prism.languages.markup &&
-(Prism.hooks.add("before-highlight", function (e) {
-    "php" === e.language &&
-    ((e.tokenStack = []),
-        (e.backupCode = e.code),
-        (e.code = e.code.replace(
-            /(?:<\?php|<\?)[\w\W]*?(?:\?>)/gi,
-            function (a) {
-                return (
-                    e.tokenStack.push(a),
-                    "{{{PHP" + e.tokenStack.length + "}}}"
-                );
+    Prism.languages.markup &&
+        (Prism.hooks.add("before-highlight", function (e) {
+            "php" === e.language &&
+                ((e.tokenStack = []),
+                (e.backupCode = e.code),
+                (e.code = e.code.replace(
+                    /(?:<\?php|<\?)[\w\W]*?(?:\?>)/gi,
+                    function (a) {
+                        return (
+                            e.tokenStack.push(a),
+                            "{{{PHP" + e.tokenStack.length + "}}}"
+                        );
+                    }
+                )));
+        }),
+        Prism.hooks.add("before-insert", function (e) {
+            "php" === e.language &&
+                ((e.code = e.backupCode), delete e.backupCode);
+        }),
+        Prism.hooks.add("after-highlight", function (e) {
+            if ("php" === e.language) {
+                for (var a, n = 0; (a = e.tokenStack[n]); n++)
+                    e.highlightedCode = e.highlightedCode.replace(
+                        "{{{PHP" + (n + 1) + "}}}",
+                        Prism.highlight(a, e.grammar, "php").replace(
+                            /\$/g,
+                            "$$$$"
+                        )
+                    );
+                e.element.innerHTML = e.highlightedCode;
             }
-        )));
-}),
-    Prism.hooks.add("before-insert", function (e) {
-        "php" === e.language &&
-        ((e.code = e.backupCode), delete e.backupCode);
-    }),
-    Prism.hooks.add("after-highlight", function (e) {
-        if ("php" === e.language) {
-            for (var a, n = 0; (a = e.tokenStack[n]); n++)
-                e.highlightedCode = e.highlightedCode.replace(
-                    "{{{PHP" + (n + 1) + "}}}",
-                    Prism.highlight(a, e.grammar, "php").replace(
-                        /\$/g,
-                        "$$$$"
-                    )
-                );
-            e.element.innerHTML = e.highlightedCode;
-        }
-    }),
-    Prism.hooks.add("wrap", function (e) {
-        "php" === e.language &&
-        "markup" === e.type &&
-        (e.content = e.content.replace(
-            /(\{\{\{PHP[0-9]+\}\}\})/g,
-            '<span class="token php">$1</span>'
-        ));
-    }),
-    Prism.languages.insertBefore("php", "comment", {
-        markup: {
-            pattern: /<[^?]\/?(.*?)>/,
-            inside: Prism.languages.markup,
-        },
-        php: /\{\{\{PHP[0-9]+\}\}\}/,
-    }));
-Prism.languages.sql = {
-    comment: {
-        pattern:
-            /(^|[^\\])(\/\*[\w\W]*?\*\/|((--)|(\/\/)).*?(\r?\n|$))/g,
-        lookbehind: !0,
-    },
-    string: /("|')(\\?.)*?\1/g,
-    keyword:
-        /\b(ACTION|ADD|AFTER|ALGORITHM|ALTER|ANALYZE|APPLY|AS|AS|ASC|AUTHORIZATION|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADE|CASCADED|CASE|CHAIN|CHAR VARYING|CHARACTER VARYING|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|CURSOR|DATA|DATABASE|DATABASES|DATETIME|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DOUBLE PRECISION|DROP|DUMMY|DUMP|DUMPFILE|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE|ESCAPED BY|EXCEPT|EXEC|EXECUTE|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR|FOR EACH ROW|FORCE|FOREIGN|FREETEXT|FREETEXTTABLE|FROM|FULL|FUNCTION|GEOMETRY|GEOMETRYCOLLECTION|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY|IDENTITY_INSERT|IDENTITYCOL|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEY|KEYS|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONGBLOB|LONGTEXT|MATCH|MATCHED|MEDIUMBLOB|MEDIUMINT|MEDIUMTEXT|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTILINESTRING|MULTIPOINT|MULTIPOLYGON|NATIONAL|NATIONAL CHAR VARYING|NATIONAL CHARACTER|NATIONAL CHARACTER VARYING|NATIONAL VARCHAR|NATURAL|NCHAR|NCHAR VARCHAR|NEXT|NO|NO SQL|NOCHECK|NOCYCLE|NONCLUSTERED|NULLIF|NUMERIC|OF|OFF|OFFSETS|ON|OPEN|OPENDATASOURCE|OPENQUERY|OPENROWSET|OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUT|OUTER|OUTFILE|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC|PROCEDURE|PUBLIC|PURGE|QUICK|RAISERROR|READ|READS SQL DATA|READTEXT|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURN|RETURNS|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROWCOUNT|ROWGUIDCOL|ROWS?|RTREE|RULE|SAVE|SAVEPOINT|SCHEMA|SELECT|SERIAL|SERIALIZABLE|SESSION|SESSION_USER|SET|SETUSER|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START|STARTING BY|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLE|TABLES|TABLESPACE|TEMPORARY|TEMPTABLE|TERMINATED BY|TEXT|TEXTSIZE|THEN|TIMESTAMP|TINYBLOB|TINYINT|TINYTEXT|TO|TOP|TRAN|TRANSACTION|TRANSACTIONS|TRIGGER|TRUNCATE|TSEQUAL|TYPE|TYPES|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNPIVOT|UPDATE|UPDATETEXT|USAGE|USE|USER|USING|VALUE|VALUES|VARBINARY|VARCHAR|VARCHARACTER|VARYING|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH|WITH ROLLUP|WITHIN|WORK|WRITE|WRITETEXT)\b/gi,
-    boolean: /\b(TRUE|FALSE|NULL)\b/gi,
-    number: /\b-?(0x)?\d*\.?[\da-f]+\b/g,
-    operator:
-        /\b(ALL|AND|ANY|BETWEEN|EXISTS|IN|LIKE|NOT|OR|IS|UNIQUE|CHARACTER SET|COLLATE|DIV|OFFSET|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b|[-+]{1}|!|=?&lt;|=?&gt;|={1}|(&amp;){1,2}|\|?\||\?|\*|\//gi,
-    ignore: /&(lt|gt|amp);/gi,
-    punctuation: /[;[\]()`,.]/g,
-};
+        }),
+        Prism.hooks.add("wrap", function (e) {
+            "php" === e.language &&
+                "markup" === e.type &&
+                (e.content = e.content.replace(
+                    /(\{\{\{PHP[0-9]+\}\}\})/g,
+                    '<span class="token php">$1</span>'
+                ));
+        }),
+        Prism.languages.insertBefore("php", "comment", {
+            markup: {
+                pattern: /<[^?]\/?(.*?)>/,
+                inside: Prism.languages.markup,
+            },
+            php: /\{\{\{PHP[0-9]+\}\}\}/,
+        }));
+        Prism.languages.sql = {
+            comment: {
+                pattern:
+                    /(^|[^\\])(\/\*[\w\W]*?\*\/|((--)|(\/\/)).*?(\r?\n|$))/g,
+                lookbehind: !0,
+            },
+            string: /("|')(\\?.)*?\1/g,
+            keyword:
+                /\b(ACTION|ADD|AFTER|ALGORITHM|ALTER|ANALYZE|APPLY|AS|AS|ASC|AUTHORIZATION|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADE|CASCADED|CASE|CHAIN|CHAR VARYING|CHARACTER VARYING|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT|CURRENT_DATE|CURRENT_TIME|CURRENT_TIMESTAMP|CURRENT_USER|CURSOR|DATA|DATABASE|DATABASES|DATETIME|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DOUBLE PRECISION|DROP|DUMMY|DUMP|DUMPFILE|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE|ESCAPED BY|EXCEPT|EXEC|EXECUTE|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR|FOR EACH ROW|FORCE|FOREIGN|FREETEXT|FREETEXTTABLE|FROM|FULL|FUNCTION|GEOMETRY|GEOMETRYCOLLECTION|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY|IDENTITY_INSERT|IDENTITYCOL|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEY|KEYS|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONGBLOB|LONGTEXT|MATCH|MATCHED|MEDIUMBLOB|MEDIUMINT|MEDIUMTEXT|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTILINESTRING|MULTIPOINT|MULTIPOLYGON|NATIONAL|NATIONAL CHAR VARYING|NATIONAL CHARACTER|NATIONAL CHARACTER VARYING|NATIONAL VARCHAR|NATURAL|NCHAR|NCHAR VARCHAR|NEXT|NO|NO SQL|NOCHECK|NOCYCLE|NONCLUSTERED|NULLIF|NUMERIC|OF|OFF|OFFSETS|ON|OPEN|OPENDATASOURCE|OPENQUERY|OPENROWSET|OPTIMIZE|OPTION|OPTIONALLY|ORDER|OUT|OUTER|OUTFILE|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC|PROCEDURE|PUBLIC|PURGE|QUICK|RAISERROR|READ|READS SQL DATA|READTEXT|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURN|RETURNS|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROWCOUNT|ROWGUIDCOL|ROWS?|RTREE|RULE|SAVE|SAVEPOINT|SCHEMA|SELECT|SERIAL|SERIALIZABLE|SESSION|SESSION_USER|SET|SETUSER|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START|STARTING BY|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLE|TABLES|TABLESPACE|TEMPORARY|TEMPTABLE|TERMINATED BY|TEXT|TEXTSIZE|THEN|TIMESTAMP|TINYBLOB|TINYINT|TINYTEXT|TO|TOP|TRAN|TRANSACTION|TRANSACTIONS|TRIGGER|TRUNCATE|TSEQUAL|TYPE|TYPES|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNPIVOT|UPDATE|UPDATETEXT|USAGE|USE|USER|USING|VALUE|VALUES|VARBINARY|VARCHAR|VARCHARACTER|VARYING|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH|WITH ROLLUP|WITHIN|WORK|WRITE|WRITETEXT)\b/gi,
+            boolean: /\b(TRUE|FALSE|NULL)\b/gi,
+            number: /\b-?(0x)?\d*\.?[\da-f]+\b/g,
+            operator:
+                /\b(ALL|AND|ANY|BETWEEN|EXISTS|IN|LIKE|NOT|OR|IS|UNIQUE|CHARACTER SET|COLLATE|DIV|OFFSET|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b|[-+]{1}|!|=?&lt;|=?&gt;|={1}|(&amp;){1,2}|\|?\||\?|\*|\//gi,
+            ignore: /&(lt|gt|amp);/gi,
+            punctuation: /[;[\]()`,.]/g,
+        };
 !(function () {
     function e(e, t) {
         return Array.prototype.slice.call((t || document).querySelectorAll(e));
@@ -530,9 +530,9 @@ Prism.languages.sql = {
             (h.textContent = Array(m - u + 2).join(" \n")),
                 h.setAttribute("aria-hidden", "true"),
                 (h.className = (i || "") + " line-highlight"),
-            t(e, "line-numbers") ||
-            (h.setAttribute("data-start", u),
-            m > u && h.setAttribute("data-end", m)),
+                t(e, "line-numbers") ||
+                    (h.setAttribute("data-start", u),
+                    m > u && h.setAttribute("data-end", m)),
                 (h.style.top = (u - l - 1) * c + "px"),
                 t(e, "line-numbers")
                     ? e.appendChild(h)
@@ -549,7 +549,7 @@ Prism.languages.sql = {
             var r = t.slice(0, t.lastIndexOf(".")),
                 o = document.getElementById(r);
             o &&
-            (o.hasAttribute("data-line") || o.setAttribute("data-line", ""),
+                (o.hasAttribute("data-line") || o.setAttribute("data-line", ""),
                 n(o, i, "temporary "),
                 document
                     .querySelector(".temporary.line-highlight")
@@ -584,56 +584,56 @@ Prism.languages.sql = {
             var r = t.element.parentNode,
                 a = r && r.getAttribute("data-line");
             r &&
-            a &&
-            /pre/i.test(r.nodeName) &&
-            (clearTimeout(o),
+                a &&
+                /pre/i.test(r.nodeName) &&
+                (clearTimeout(o),
                 e(".line-highlight", r).forEach(function (e) {
                     e.parentNode.removeChild(e);
                 }),
                 n(r, a),
                 (o = setTimeout(i, 1)));
         }),
-        window.addEventListener && window.addEventListener("hashchange", i);
+            window.addEventListener && window.addEventListener("hashchange", i);
     }
 })();
 !(function () {
     "undefined" != typeof self &&
-    self.Prism &&
-    self.document &&
-    Prism.hooks.add("complete", function (e) {
-        if (e.code) {
-            var t = e.element.parentNode,
-                s = /\s*\bline-numbers\b\s*/;
-            if (
-                t &&
-                /pre/i.test(t.nodeName) &&
-                (s.test(t.className) || s.test(e.element.className)) &&
-                !e.element.querySelector(".line-numbers-rows")
-            ) {
-                s.test(e.element.className) &&
-                (e.element.className = e.element.className.replace(
-                    s,
-                    ""
-                )),
-                s.test(t.className) || (t.className += " line-numbers");
-                var n,
-                    a = e.code.match(/\n(?!$)/g),
-                    l = a ? a.length + 1 : 1,
-                    r = new Array(l + 1);
-                (r = r.join("<span></span>")),
-                    (n = document.createElement("span")),
-                    n.setAttribute("aria-hidden", "true"),
-                    (n.className = "line-numbers-rows"),
-                    (n.innerHTML = r),
-                t.hasAttribute("data-start") &&
-                (t.style.counterReset =
-                    "linenumber " +
-                    (parseInt(t.getAttribute("data-start"), 10) -
-                        1)),
-                    e.element.appendChild(n);
+        self.Prism &&
+        self.document &&
+        Prism.hooks.add("complete", function (e) {
+            if (e.code) {
+                var t = e.element.parentNode,
+                    s = /\s*\bline-numbers\b\s*/;
+                if (
+                    t &&
+                    /pre/i.test(t.nodeName) &&
+                    (s.test(t.className) || s.test(e.element.className)) &&
+                    !e.element.querySelector(".line-numbers-rows")
+                ) {
+                    s.test(e.element.className) &&
+                        (e.element.className = e.element.className.replace(
+                            s,
+                            ""
+                        )),
+                        s.test(t.className) || (t.className += " line-numbers");
+                    var n,
+                        a = e.code.match(/\n(?!$)/g),
+                        l = a ? a.length + 1 : 1,
+                        r = new Array(l + 1);
+                    (r = r.join("<span></span>")),
+                        (n = document.createElement("span")),
+                        n.setAttribute("aria-hidden", "true"),
+                        (n.className = "line-numbers-rows"),
+                        (n.innerHTML = r),
+                        t.hasAttribute("data-start") &&
+                            (t.style.counterReset =
+                                "linenumber " +
+                                (parseInt(t.getAttribute("data-start"), 10) -
+                                    1)),
+                        e.element.appendChild(n);
+                }
             }
-        }
-    });
+        });
 })();
 
 
