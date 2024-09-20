@@ -2,9 +2,8 @@
 
 namespace Modules\Filament\Providers;
 
-use use App\Enums\LanguageEnum;
+use App\Enums\LanguageEnum;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
-use BezhanSalleh\PanelSwitch\PanelSwitch;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -35,10 +34,10 @@ class UserPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->globalSearchKeyBindings(['command+i', 'ctrl+i'])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->discoverResources(in: app_path('Filament/UserPanel/Resources'), for: 'App\\Filament\\UserPanel\\Resources')
-            ->discoverPages(in: app_path('Filament/UserPanel/Pages'), for: 'App\\Filament\\UserPanel\\Pages')
+            ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
+            ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
             ->pages($this->getPages())
-            ->discoverWidgets(in: app_path('Filament/UserPanel/Widgets'), for: 'App\\Filament\\UserPanel\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets/User'), for: 'App\\Filament\\Widgets\\User')
             ->widgets($this->getWidgets())
             ->middleware($this->getMiddlewares())
             ->authMiddleware($this->getAuthMiddlewares());
@@ -48,24 +47,6 @@ class UserPanelProvider extends PanelProvider
     {
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
             $switch->locales(LanguageEnum::getDefaultLanguages());
-        });
-        PanelSwitch::configureUsing(function (PanelSwitch $panelSwitch) {
-            $panelSwitch
-                ->modalHeading('Available Panels')
-                ->modalWidth('sm')
-                ->simple()
-                ->icons([
-                    'admin' => 'heroicon-o-square-2-stack',
-                    'super-admin' => 'heroicon-o-star',
-                    'user' => 'heroicon-o-star',
-                ])
-                ->iconSize(16)
-                ->labels([
-                    'admin' => 'Admin Panel',
-                    'super-admin' => 'Super Admin Panel',
-                    'user' => 'User Panel',
-                ]);
-
         });
     }
 

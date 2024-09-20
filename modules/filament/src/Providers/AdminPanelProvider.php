@@ -2,7 +2,7 @@
 
 namespace Modules\Filament\Providers;
 
-use use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Enums\LanguageEnum;
 use Awcodes\Curator\CuratorPlugin;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
@@ -48,14 +48,13 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->spa()
-            ->default()
+//            ->default()
             ->id('admin')
             ->path('admin')
             ->databaseNotifications()
             ->sidebarCollapsibleOnDesktop()
             ->globalSearchKeyBindings(['command+i', 'ctrl+i'])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->login()
             ->colors($this->getColors())
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -159,6 +158,7 @@ class AdminPanelProvider extends PanelProvider
                 ->simple()
                 ->icons([
                     'admin' => 'heroicon-o-square-2-stack',
+                    'super-admin' => 'heroicon-o-square-2-stack',
                     'users' => 'heroicon-o-star',
                 ])
                 ->iconSize(16)

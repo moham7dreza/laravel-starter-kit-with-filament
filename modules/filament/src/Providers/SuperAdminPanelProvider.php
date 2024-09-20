@@ -51,6 +51,7 @@ class SuperAdminPanelProvider extends PanelProvider
     {
         return $panel
             ->spa()
+            ->default()
             ->id('super-admin')
             ->path('super-admin')
             ->databaseNotifications()
@@ -58,10 +59,10 @@ class SuperAdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['command+i', 'ctrl+i'])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors($this->getColors())
-            ->discoverResources(in: app_path('Filament/SuperAdmin/Resources'), for: 'App\\Filament\\SuperAdmin\\Resources')
-            ->discoverPages(in: app_path('Filament/SuperAdmin/Pages'), for: 'App\\Filament\\SuperAdmin\\Pages')
+            ->discoverResources(in: app_path('Filament/Resources/SuperAdmin'), for: 'App\\Filament\\Resources\\SuperAdmin')
+            ->discoverPages(in: app_path('Filament/Pages/SuperAdmin'), for: 'App\\Filament\\Pages\\SuperAdmin')
             ->pages($this->getPages())
-            ->discoverWidgets(in: app_path('Filament/SuperAdmin/Widgets'), for: 'App\\Filament\\SuperAdmin\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets/SuperAdmin'), for: 'App\\Filament\\Widgets\\SuperAdmin')
             ->widgets($this->getWidgets())
             ->middleware($this->getMiddlewares())
             ->authMiddleware($this->getAuthMiddlewares())
