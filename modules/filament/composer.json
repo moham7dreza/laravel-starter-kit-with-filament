@@ -50,6 +50,7 @@
             "providers": [
                 "Modules\\Filament\\Providers\\FilamentServiceProvider",
                 "Modules\\Filament\\Providers\\AdminPanelProvider",
+                "Modules\\Filament\\Providers\\SuperAdminPanelProvider",
                 "Modules\\Filament\\Providers\\UserPanelProvider"
             ]
         }

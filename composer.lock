@@ -7358,7 +7358,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/filament",
-                "reference": "f57dcfca82999b85dc1da0d0469d857059b9c8df"
+                "reference": "e50e96e28f8629f7c13ce023527d715d8cf725de"
             },
             "require": {
                 "awcodes/filament-sticky-header": "^2.0",
@@ -7398,6 +7398,7 @@
                     "providers": [
                         "Modules\\Filament\\Providers\\FilamentServiceProvider",
                         "Modules\\Filament\\Providers\\AdminPanelProvider",
+                        "Modules\\Filament\\Providers\\SuperAdminPanelProvider",
                         "Modules\\Filament\\Providers\\UserPanelProvider"
                     ]
                 }

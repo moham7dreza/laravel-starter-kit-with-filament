@@ -2,27 +2,19 @@
 
 namespace Modules\Filament\Providers;
 
-use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Enums\LanguageEnum;
 use Awcodes\Curator\CuratorPlugin;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
-use Awcodes\FilamentVersions\VersionsPlugin;
-use Awcodes\FilamentVersions\VersionsWidget;
 use Awcodes\LightSwitch\LightSwitchPlugin;
-use Awcodes\Overlook\OverlookPlugin;
-use Awcodes\Overlook\Widgets\OverlookWidget;
 use BetterFuturesStudio\FilamentLocalLogins\LocalLogins;
-use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
-use Brickx\MaintenanceSwitch\MaintenanceSwitchPlugin;
 use ChrisReedIO\Socialment\SocialmentPlugin;
-use Croustibat\FilamentJobsMonitor\FilamentJobsMonitorPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -31,7 +23,6 @@ use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Hasnayeen\Themes\ThemesPlugin;
-use HusamTariq\FilamentDatabaseSchedule\FilamentDatabaseSchedulePlugin;
 use Hydrat\TableLayoutToggle\TableLayoutTogglePlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -42,16 +33,11 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Kenepa\ResourceLock\ResourceLockPlugin;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
-use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 use lockscreen\FilamentLockscreen\Lockscreen;
 use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
-use pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
-use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
-use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
-use SolutionForest\FilamentFirewall\FilamentFirewallPanel;
 use SolutionForest\FilamentSimpleLightBox\SimpleLightBoxPlugin;
 use Statikbe\FilamentTranslationManager\FilamentChainedTranslationManagerPlugin;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
@@ -70,89 +56,30 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['command+i', 'ctrl+i'])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+            ->colors($this->getColors())
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
+            ->pages($this->getPages())
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-                VersionsWidget::class,
-                OverlookWidget::class,
-            ])
-            ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                SubstituteBindings::class,
-                DisableBladeIconComponents::class,
-                DispatchServingFilamentEvent::class,
-                SetTheme::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
-            ])
-            ->navigationItems(self::getNavItems())
-            ->plugins(self::getPlugins());
+            ->widgets($this->getWidgets())
+            ->middleware($this->getMiddlewares())
+            ->authMiddleware($this->getAuthMiddlewares())
+            ->plugins($this->getPlugins());
     }
 
     public function boot(): void
     {
-        self::getConfigurations();
+        $this->getConfigurations();
     }
 
-    public static function getNavItems(): array
-    {
-        return [
-            NavigationItem::make()
-                ->label(fn(): string => __('Api Routes'))
-                ->url('/api/' . config('l5-swagger.defaults.routes.docs'), shouldOpenInNewTab: true)
-                ->icon('heroicon-o-presentation-chart-line')
-                ->group('Tools')
-                ->sort(0),
-            NavigationItem::make()
-                ->label(fn(): string => __('Telescope'))
-                ->url('/' . config('telescope.path'), shouldOpenInNewTab: true)
-                ->icon('heroicon-o-magnifying-glass-circle')
-                ->group('Tools')
-                ->sort(2),
-            NavigationItem::make()
-                ->label(fn(): string => __('Log viewer'))
-                ->url('/' . config('log-viewer.route_path'), shouldOpenInNewTab: true)
-                ->icon('heroicon-o-exclamation-triangle')
-                ->group('Tools')
-                ->sort(1),
-            NavigationItem::make()
-                ->label(fn(): string => __('Pulse'))
-                ->url('/' . config('pulse.path'), shouldOpenInNewTab: true)
-                ->icon('heroicon-o-arrow-trending-up')
-                ->group('Tools')
-                ->sort(3),
-            NavigationItem::make()
-                ->label(fn(): string => __('Horizon'))
-                ->url('/' . config('horizon.path'), shouldOpenInNewTab: true)
-                ->icon('heroicon-o-queue-list')
-                ->group('Tools')
-                ->sort(4),
-        ];
-    }
-
-    public static function getPlugins(): array
+    private function getPlugins(): array
     {
         return [
 //            ResourceLockPlugin::make(),
             new LocalLogins,
 //            FilamentSpatieRolesPermissionsPlugin::make(),
             SocialmentPlugin::make(),
-            FilamentFirewallPanel::make(),
+//            FilamentFirewallPanel::make(),
             LightSwitchPlugin::make(),
             FilamentProgressbarPlugin::make()
                 ->color('#29b'),
@@ -165,39 +92,39 @@ class AdminPanelProvider extends PanelProvider
             StickyHeaderPlugin::make()
                 ->floating()
                 ->colored(),
-            VersionsPlugin::make()
-                ->widgetColumnSpan('full')
-                ->widgetSort(2),
-            EnvironmentIndicatorPlugin::make(),
-            FilamentSpatieLaravelBackupPlugin::make(),
-            FilamentSpatieLaravelHealthPlugin::make(),
+//            VersionsPlugin::make()
+//                ->widgetColumnSpan('full')
+//                ->widgetSort(2),
+//            EnvironmentIndicatorPlugin::make(),
+//            FilamentSpatieLaravelBackupPlugin::make(),
+//            FilamentSpatieLaravelHealthPlugin::make(),
 //            FilamentPeekPlugin::make(),
             FilamentBackgroundsPlugin::make(),
-            FilamentExceptionsPlugin::make(),
+//            FilamentExceptionsPlugin::make(),
             FilamentShieldPlugin::make(),
-            MaintenanceSwitchPlugin::make(),
-            FilamentApexChartsPlugin::make(),
-            OverlookPlugin::make()
-                ->sort(2)
-                ->columns([
-                    'default' => 1,
-                    'sm' => 2,
-                    'md' => 3,
-                    'lg' => 4,
-                    'xl' => 5,
-                    '2xl' => null,
-                ]),
-            FilamentDatabaseSchedulePlugin::make(),
-            FilamentJobsMonitorPlugin::make()
-                ->label('Job')
-                ->pluralLabel('Jobs')
-                ->enableNavigation()
-                ->navigationIcon('heroicon-o-cpu-chip')
-                ->navigationGroup('Settings')
-                ->navigationSort(5)
-                ->navigationCountBadge()
-                ->enablePruning()
-                ->pruningRetention(7),
+//            MaintenanceSwitchPlugin::make(),
+//            FilamentApexChartsPlugin::make(),
+//            OverlookPlugin::make()
+//                ->sort(2)
+//                ->columns([
+//                    'default' => 1,
+//                    'sm' => 2,
+//                    'md' => 3,
+//                    'lg' => 4,
+//                    'xl' => 5,
+//                    '2xl' => null,
+//                ]),
+//            FilamentDatabaseSchedulePlugin::make(),
+//            FilamentJobsMonitorPlugin::make()
+//                ->label('Job')
+//                ->pluralLabel('Jobs')
+//                ->enableNavigation()
+//                ->navigationIcon('heroicon-o-cpu-chip')
+//                ->navigationGroup('Settings')
+//                ->navigationSort(5)
+//                ->navigationCountBadge()
+//                ->enablePruning()
+//                ->pruningRetention(7),
 //            CuratorPlugin::make()
 //                ->label('Media')
 //                ->pluralLabel('Media')
@@ -220,7 +147,7 @@ class AdminPanelProvider extends PanelProvider
         ];
     }
 
-    public static function getConfigurations(): void
+    private function getConfigurations(): void
     {
         LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
             $switch->locales(LanguageEnum::getDefaultLanguages());
@@ -237,9 +164,70 @@ class AdminPanelProvider extends PanelProvider
                 ->iconSize(16)
                 ->labels([
                     'admin' => 'Admin Panel',
-                    'app' => 'User Panel',
+                    'super-admin' => 'Super Admin Panel',
+                    'user' => 'User Panel',
                 ]);
 
         });
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getWidgets(): array
+    {
+        return [
+            Widgets\AccountWidget::class,
+            Widgets\FilamentInfoWidget::class,
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getMiddlewares(): array
+    {
+        return [
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            AuthenticateSession::class,
+            ShareErrorsFromSession::class,
+            VerifyCsrfToken::class,
+            SubstituteBindings::class,
+            DisableBladeIconComponents::class,
+            DispatchServingFilamentEvent::class,
+            SetTheme::class,
+        ];
+    }
+
+    /**
+     * @return class-string[]
+     */
+    public function getPages(): array
+    {
+        return [
+            Pages\Dashboard::class,
+        ];
+    }
+
+    /**
+     * @return class-string[]
+     */
+    public function getAuthMiddlewares(): array
+    {
+        return [
+            Authenticate::class,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getColors(): array
+    {
+        return [
+            'primary' => Color::Amber,
+        ];
     }
 }
