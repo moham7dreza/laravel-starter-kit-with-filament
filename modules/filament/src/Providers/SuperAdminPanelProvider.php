@@ -2,7 +2,7 @@
 
 namespace Modules\Filament\Providers;
 
-use use App\Enums\LanguageEnum;
+use App\Enums\LanguageEnum;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Awcodes\FilamentVersions\VersionsPlugin;
 use Awcodes\FilamentVersions\VersionsWidget;
