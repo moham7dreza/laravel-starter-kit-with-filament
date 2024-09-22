@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\EnvironmentEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Modules\Monitor\Models\DevLog;
 use Modules\Region\Enums\LanguageEnum;
@@ -478,4 +479,11 @@ function number2latin($str): array|string
     $eastern_arabic = array('٠', '۰', '۱', '١', '٢', '۲', '٣', '۳', '٤', '۴', '٥', '۵', '٦', '۶', '٧', '۷', '٨', '۸', '٩', '۹');
 
     return str_replace($eastern_arabic, $western_arabic, $str);
+}
+
+if (!function_exists('getSqlWithBindings')) {
+    function getSqlWithBindings(Builder $query): array
+    {
+        return str_replace('?', $query->getBindings(), $query->toSql());
+    }
 }
