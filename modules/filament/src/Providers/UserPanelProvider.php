@@ -3,7 +3,10 @@
 namespace Modules\Filament\Providers;
 
 use App\Enums\LanguageEnum;
+use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
+use Awcodes\LightSwitch\LightSwitchPlugin;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
+use CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -13,6 +16,7 @@ use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
+use Hasnayeen\Themes\ThemesPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -20,6 +24,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Njxqlus\FilamentProgressbar\FilamentProgressbarPlugin;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 
 class UserPanelProvider extends PanelProvider
 {
@@ -40,7 +46,8 @@ class UserPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets/User'), for: 'App\\Filament\\Widgets\\User')
             ->widgets($this->getWidgets())
             ->middleware($this->getMiddlewares())
-            ->authMiddleware($this->getAuthMiddlewares());
+            ->authMiddleware($this->getAuthMiddlewares())
+            ->plugins($this->getPlugins());
     }
 
     public function boot(): void
@@ -107,6 +114,21 @@ class UserPanelProvider extends PanelProvider
     {
         return [
             Authenticate::class,
+        ];
+    }
+
+    private function getPlugins(): array
+    {
+        return [
+            GlobalSearchModalPlugin::make(),
+            LightSwitchPlugin::make(),
+            FilamentProgressbarPlugin::make()
+                ->color('#29b'),
+            ThemesPlugin::make(),
+            StickyHeaderPlugin::make()
+                ->floating()
+                ->colored(),
+            FilamentBackgroundsPlugin::make(),
         ];
     }
 }

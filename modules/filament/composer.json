@@ -34,7 +34,8 @@
         "solution-forest/filament-simplelightbox": "*",
         "swisnl/filament-backgrounds": "^1.1",
         "taecontrol/moonguard": "^1.2",
-        "hasnayeen/themes": "^3.0"
+        "hasnayeen/themes": "^3.0",
+        "charrafimed/global-search-modal": "^3.2"
     },
     "autoload": {
         "psr-4": {

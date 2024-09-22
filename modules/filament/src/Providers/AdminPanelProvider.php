@@ -11,6 +11,7 @@ use BetterFuturesStudio\FilamentLocalLogins\LocalLogins;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
+use CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin;
 use ChrisReedIO\Socialment\SocialmentPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -143,6 +144,7 @@ class AdminPanelProvider extends PanelProvider
 //                ->listLayoutButtonIcon()
 //                ->gridLayoutButtonIcon(),
             SimpleLightBoxPlugin::make(),
+            GlobalSearchModalPlugin::make(),
         ];
     }
 
