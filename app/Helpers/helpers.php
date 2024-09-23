@@ -1,10 +1,10 @@
 <?php
 
 use App\Enums\EnvironmentEnum;
+use App\Enums\LanguageEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Modules\Monitor\Models\DevLog;
-use Modules\Region\Enums\LanguageEnum;
 use Morilog\Jalali\Jalalian;
 
 function jalaliDate($date, string $format = '%A, %d %B %Y'): string

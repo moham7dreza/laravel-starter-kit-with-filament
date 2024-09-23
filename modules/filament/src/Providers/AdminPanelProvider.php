@@ -7,12 +7,10 @@ use App\Enums\LanguageEnum;
 use Awcodes\Curator\CuratorPlugin;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
-use BetterFuturesStudio\FilamentLocalLogins\LocalLogins;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BezhanSalleh\PanelSwitch\PanelSwitch;
 use CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin;
-use ChrisReedIO\Socialment\SocialmentPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -50,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->spa()
 //            ->default()
+            ->login()
             ->id('admin')
             ->path('admin')
             ->databaseNotifications()
@@ -57,10 +56,10 @@ class AdminPanelProvider extends PanelProvider
             ->globalSearchKeyBindings(['command+i', 'ctrl+i'])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors($this->getColors())
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
+            ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
             ->pages($this->getPages())
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets/Admin'), for: 'App\\Filament\\Widgets\\Admin')
             ->widgets($this->getWidgets())
             ->middleware($this->getMiddlewares())
             ->authMiddleware($this->getAuthMiddlewares())
@@ -76,9 +75,9 @@ class AdminPanelProvider extends PanelProvider
     {
         return [
 //            ResourceLockPlugin::make(),
-            new LocalLogins,
+//            new LocalLogins,
 //            FilamentSpatieRolesPermissionsPlugin::make(),
-            SocialmentPlugin::make(),
+//            SocialmentPlugin::make(),
 //            FilamentFirewallPanel::make(),
             LightSwitchPlugin::make(),
             FilamentProgressbarPlugin::make()
