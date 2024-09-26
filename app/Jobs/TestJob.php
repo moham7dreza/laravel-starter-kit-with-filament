@@ -10,7 +10,7 @@ class TestJob extends AbstractChunkerJob
     public function handle(): void
     {
         $handler = function ($item) {
-            dump('inside handler');
+            sleep(1);
         };
 
         $this->handleJob($handler);

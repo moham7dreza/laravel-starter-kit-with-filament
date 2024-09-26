@@ -24,7 +24,7 @@ class TestCommand extends AbstractChunkerCommand
 
     public function __construct()
     {
-        $query = User::query();
+        $query = User::query()->whereNotNull('email');
 
         $job = app(TestJob::class)
             ->setQuery($query->toSql())
@@ -34,7 +34,7 @@ class TestCommand extends AbstractChunkerCommand
             ->prepareMainQuery()
             ->setLogging(false);
 
-        parent::__construct($job, 100, false);
+        parent::__construct($job, 100);
     }
 
     /**

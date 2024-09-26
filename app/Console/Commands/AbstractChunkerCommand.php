@@ -39,7 +39,7 @@ abstract class AbstractChunkerCommand extends Command
         $t0 = microtime(true);
 
         if (!$shouldQueue) {
-            $bar = $this->output->createProgressBar($count);
+            $bar = $this->output->createProgressBar();
             $bar->start($count);
         }
 
@@ -55,6 +55,9 @@ abstract class AbstractChunkerCommand extends Command
                 $this->job::dispatch();
             } else {
                 $advance = $this->batchSize;
+                if ($chunk + $advance > $count) {
+                    $advance = $count - $chunk;
+                }
 
                 $this->job->handle();
 
