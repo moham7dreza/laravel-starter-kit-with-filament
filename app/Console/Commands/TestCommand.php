@@ -24,9 +24,17 @@ class TestCommand extends AbstractChunkerCommand
 
     public function __construct()
     {
-        $job = app(TestJob::class)->setQuery(User::query())->onQueue(QueueEnum::default->value);
+        $query = User::query();
 
-        parent::__construct($job, 100, true);
+        $job = app(TestJob::class)
+            ->setQuery($query->toSql())
+            ->setBindings($query->getBindings())
+            ->setModel(User::class)
+            ->onQueue(QueueEnum::default->value)
+            ->prepareMainQuery()
+            ->setLogging(false);
+
+        parent::__construct($job, 100, false);
     }
 
     /**

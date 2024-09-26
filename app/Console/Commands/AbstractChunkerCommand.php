@@ -56,13 +56,16 @@ abstract class AbstractChunkerCommand extends Command
             } else {
                 $advance = $this->batchSize;
 
-                dispatch_sync($this->job);
+                $this->job->handle();
 
                 $bar->advance($advance);
             }
         }
 
-        $duration = round($t0 - microtime(true), 4) * 1000;
+        $duration = round(microtime(true) - $t0, 3);
+        if ($duration < 1) {
+            $duration *= 1000;
+        }
 
         if ($this->withLogging) {
             dump(compact("duration"));
