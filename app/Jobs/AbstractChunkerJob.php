@@ -31,11 +31,11 @@ abstract class AbstractChunkerJob implements ShouldQueue
 
     )
     {
-        $this->setSql($DTO->sql);
-        $this->setBindings($DTO->bindings);
-        $this->setModel($DTO->model);
-        $this->onQueue($DTO->queue);
-        $this->setLogging($DTO->logging);
+        $this->setSql($DTO->getSql());
+        $this->setBindings($DTO->getBindings());
+        $this->setModel($DTO->getModel());
+        $this->onQueue($DTO->getQueue());
+        $this->setLogging($DTO->isLogging());
         $this->prepareMainQuery($DTO);
     }
 
@@ -123,14 +123,16 @@ abstract class AbstractChunkerJob implements ShouldQueue
     public function prepareMainQuery(JobChunkerDTO $DTO): static
     {
         // Rebuild the query as a Builder instance from raw SQL and bindings
-        $query = DB::table(DB::raw("({$DTO->sql}) as subquery"))
-            ->setBindings($DTO->bindings);
+        $query = DB::table(DB::raw("({$DTO->getSql()}) as subquery"))
+            ->setBindings($DTO->getBindings());
 
-        // Automatically get the table name from the User model
-        $tableName = (new $DTO->model())->getTable();
+        $model = $DTO->getModel();
+
+        // Automatically get the table name from model
+        $tableName = (new $model())->getTable();
 
         // Use fromSub() to rebuild the Eloquent Builder dynamically
-        $this->mainQuery = $DTO->model::fromSub($query, $tableName);
+        $this->mainQuery = $model::fromSub($query, $tableName);
 
         return $this;
     }

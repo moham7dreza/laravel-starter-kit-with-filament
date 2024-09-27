@@ -30,16 +30,16 @@ class TestCommand extends AbstractChunkerCommand
     {
         $query = User::query()->whereNotNull('email');
 
-        $DTO = app(JobChunkerDTO::class);
-        $DTO->sql = $query->toSql();
-        $DTO->bindings = $query->getBindings();
-        $DTO->job = TestJob::class;
-        $DTO->queue = QueueEnum::default->value;
-        $DTO->model = User::class;
-        $DTO->batchSize = 100;
-        $DTO->logging = false;
-        $DTO->shouldQueue = $this->option('queue') ?? false;
+        $DTO = app(JobChunkerDTO::class)
+            ->setSql($query->toSql())
+            ->setBindings($query->getBindings())
+            ->setJob(TestJob::class)
+            ->setQueue(QueueEnum::default->value)
+            ->setModel(User::class)
+            ->setBatchSize(100)
+            ->setLogging(false)
+            ->setShouldQueue($this->option('queue') ?? false);
 
-        return $this->handleCommand($DTO);
+        return $this->chunkQueryToJobs($DTO);
     }
 }

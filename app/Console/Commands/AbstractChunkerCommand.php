@@ -8,12 +8,12 @@ use Illuminate\Console\Command;
 
 abstract class AbstractChunkerCommand extends Command
 {
-    public function handleCommand(JobChunkerDTO $DTO): int
+    public function chunkQueryToJobs(JobChunkerDTO $DTO): int
     {
         /* @var AbstractChunkerJob $job */
-        $job = app($DTO->job, ['DTO' => $DTO]);
+        $job = app($DTO->getJob(), ['DTO' => $DTO]);
 
-        $shouldQueue = $DTO->shouldQueue;
+        $shouldQueue = $DTO->isShouldQueue();
 
         $count = $job->getQueryCount();
 
@@ -26,18 +26,21 @@ abstract class AbstractChunkerCommand extends Command
             $bar->start($count);
         }
 
-        for ($chunk = 0; $chunk <= $count; $chunk += $DTO->batchSize) {
+        for ($chunk = 0; $chunk <= $count; $chunk += $DTO->getBatchSize()) {
 
-            if ($DTO->logging) {
+            if ($DTO->isLogging()) {
                 dump(compact('chunk'));
             }
 
-            $job = $job->setOffset($chunk)->setLimit($DTO->batchSize)->setLogging($DTO->logging);
+            $job = $job
+                ->setOffset($chunk)
+                ->setLimit($DTO->getBatchSize())
+                ->setLogging($DTO->isLogging());
 
             if ($shouldQueue) {
                 $job::dispatch();
             } else {
-                $advance = $DTO->batchSize;
+                $advance = $DTO->getBatchSize();
                 if ($chunk + $advance > $count) {
                     $advance = $count - $chunk;
                 }
@@ -53,7 +56,7 @@ abstract class AbstractChunkerCommand extends Command
             $duration *= 1000;
         }
 
-        if ($DTO->logging) {
+        if ($DTO->isLogging()) {
             dump(compact("duration"));
         }
 
