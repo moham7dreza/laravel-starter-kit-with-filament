@@ -2,37 +2,20 @@
 
 namespace App\Console\Commands;
 
+use App\DataContracts\JobChunkerDTO;
 use App\Jobs\AbstractChunkerJob;
 use Illuminate\Console\Command;
 
 abstract class AbstractChunkerCommand extends Command
 {
-    public function __construct(
-        private AbstractChunkerJob $job,
-        private int                $batchSize,
-        private bool               $withLogging = false,
-    )
+    public function handleCommand(JobChunkerDTO $DTO): int
     {
-        parent::__construct();
-    }
+        /* @var AbstractChunkerJob $job */
+        $job = app($DTO->job, ['DTO' => $DTO]);
 
-    public function setBatchSize($batchSize): static
-    {
-        $this->batchSize = $batchSize;
-        return $this;
-    }
-
-    public function setJob($job): static
-    {
-        $this->job = $job;
-        return $this;
-    }
-
-    public function handleCommand(): int
-    {
         $shouldQueue = $this->option('queue') ?? false;
 
-        $count = $this->job->getQueryCount();
+        $count = $job->getQueryCount();
 
         $bar = null;
 
@@ -43,23 +26,23 @@ abstract class AbstractChunkerCommand extends Command
             $bar->start($count);
         }
 
-        for ($chunk = 0; $chunk <= $count; $chunk += $this->batchSize) {
+        for ($chunk = 0; $chunk <= $count; $chunk += $DTO->batchSize) {
 
-            if ($this->withLogging) {
+            if ($DTO->logging) {
                 dump(compact('chunk'));
             }
 
-            $this->job = $this->job->setOffset($chunk)->setLimit($this->batchSize)->setLogging($this->withLogging);
+            $job = $job->setOffset($chunk)->setLimit($DTO->batchSize)->setLogging($DTO->logging);
 
             if ($shouldQueue) {
-                $this->job::dispatch();
+                $job::dispatch();
             } else {
-                $advance = $this->batchSize;
+                $advance = $DTO->batchSize;
                 if ($chunk + $advance > $count) {
                     $advance = $count - $chunk;
                 }
 
-                $this->job->handle();
+                $job->handle();
 
                 $bar->advance($advance);
             }
@@ -70,7 +53,7 @@ abstract class AbstractChunkerCommand extends Command
             $duration *= 1000;
         }
 
-        if ($this->withLogging) {
+        if ($DTO->logging) {
             dump(compact("duration"));
         }
 
@@ -79,11 +62,5 @@ abstract class AbstractChunkerCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    public function setLogging($logging): static
-    {
-        $this->withLogging = $logging;
-        return $this;
     }
 }

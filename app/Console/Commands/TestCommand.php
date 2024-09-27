@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\DataContracts\JobChunkerDTO;
 use App\Enums\QueueEnum;
 use App\Jobs\TestJob;
 use App\Models\User;
@@ -22,26 +23,22 @@ class TestCommand extends AbstractChunkerCommand
      */
     protected $description = 'Command description';
 
-    public function __construct()
-    {
-        $query = User::query()->whereNotNull('email');
-
-        $job = app(TestJob::class)
-            ->setQuery($query->toSql())
-            ->setBindings($query->getBindings())
-            ->setModel(User::class)
-            ->onQueue(QueueEnum::default->value)
-            ->prepareMainQuery()
-            ->setLogging(false);
-
-        parent::__construct($job, 100);
-    }
-
     /**
      * Execute the console command.
      */
     public function handle(): int
     {
-        return $this->handleCommand();
+        $query = User::query()->whereNotNull('email');
+
+        $DTO = app(JobChunkerDTO::class);
+        $DTO->sql = $query->toSql();
+        $DTO->bindings = $query->getBindings();
+        $DTO->job = TestJob::class;
+        $DTO->queue = QueueEnum::default->value;
+        $DTO->model = User::class;
+        $DTO->batchSize = 100;
+        $DTO->logging = false;
+
+        return $this->handleCommand($DTO);
     }
 }

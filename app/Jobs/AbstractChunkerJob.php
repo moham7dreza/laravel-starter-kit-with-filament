@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\DataContracts\JobChunkerDTO;
 use Closure;
 use DB;
 use Exception;
@@ -18,16 +19,24 @@ abstract class AbstractChunkerJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        private ?int                                       $offset = null,
-        private ?int                                       $limit = null,
-        protected ?string                                  $query = null,
-        protected ?array                                   $bindings = null,
-        private ?bool                                      $withLogging = null,
+        public JobChunkerDTO $DTO,
+        private ?int         $offset = null,
+        private ?int         $limit = null,
         private Builder|null $mainQuery = null,
-        private ?string                                    $model = null,
+        //
+        protected ?string    $sql = null,
+        protected ?array     $bindings = null,
+        private ?bool        $withLogging = null,
+        private ?string      $model = null,
+
     )
     {
-        //
+        $this->setSql($DTO->sql);
+        $this->setBindings($DTO->bindings);
+        $this->setModel($DTO->model);
+        $this->onQueue($DTO->queue);
+        $this->setLogging($DTO->logging);
+        $this->prepareMainQuery($DTO);
     }
 
     public function setModel($model): static
@@ -48,9 +57,9 @@ abstract class AbstractChunkerJob implements ShouldQueue
         return $this;
     }
 
-    public function setQuery($query): static
+    public function setSql($sql): static
     {
-        $this->query = $query;
+        $this->sql = $sql;
         return $this;
     }
 
@@ -111,17 +120,17 @@ abstract class AbstractChunkerJob implements ShouldQueue
         });
     }
 
-    public function prepareMainQuery(): static
+    public function prepareMainQuery(JobChunkerDTO $DTO): static
     {
         // Rebuild the query as a Builder instance from raw SQL and bindings
-        $query = DB::table(DB::raw("({$this->query}) as subquery"))
-            ->setBindings($this->bindings);
+        $query = DB::table(DB::raw("({$DTO->sql}) as subquery"))
+            ->setBindings($DTO->bindings);
 
         // Automatically get the table name from the User model
-        $tableName = (new $this->model())->getTable();
+        $tableName = (new $DTO->model())->getTable();
 
         // Use fromSub() to rebuild the Eloquent Builder dynamically
-        $this->mainQuery = $this->model::fromSub($query, $tableName);
+        $this->mainQuery = $DTO->model::fromSub($query, $tableName);
 
         return $this;
     }
