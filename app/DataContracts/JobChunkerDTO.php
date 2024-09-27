@@ -11,4 +11,5 @@ class JobChunkerDTO
     public array $bindings;
     public bool $logging;
     public int $batchSize;
+    public bool $shouldQueue;
 }

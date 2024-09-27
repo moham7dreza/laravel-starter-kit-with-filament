@@ -38,6 +38,7 @@ class TestCommand extends AbstractChunkerCommand
         $DTO->model = User::class;
         $DTO->batchSize = 100;
         $DTO->logging = false;
+        $DTO->shouldQueue = $this->option('queue') ?? false;
 
         return $this->handleCommand($DTO);
     }

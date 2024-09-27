@@ -13,7 +13,7 @@ abstract class AbstractChunkerCommand extends Command
         /* @var AbstractChunkerJob $job */
         $job = app($DTO->job, ['DTO' => $DTO]);
 
-        $shouldQueue = $this->option('queue') ?? false;
+        $shouldQueue = $DTO->shouldQueue;
 
         $count = $job->getQueryCount();
 
