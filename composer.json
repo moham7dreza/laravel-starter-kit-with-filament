@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.9",
         "modules/filament": "*",
         "modules/monitor": "*",
-        "shetabit/payment": "^5.8"
+        "shetabit/payment": "^5.8",
+        "symfony/stopwatch": "^7.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "*",

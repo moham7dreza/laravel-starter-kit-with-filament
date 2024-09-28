@@ -2,102 +2,29 @@
 
 namespace App\DataContracts;
 
+use Closure;
+use Illuminate\Console\OutputStyle;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 class JobChunkerDTO
 {
-    private string $job;
-    private string $queue;
-    private string $sql;
-    private string $model;
-    private array $bindings;
-    private bool $logging;
-    private int $batchSize;
-    private bool $shouldQueue;
-
-    public function getJob(): string
+    public function __construct(
+        public readonly string                       $job,
+        public readonly string                       $queue,
+        public readonly bool                         $logging,
+        public readonly int                          $batchSize,
+        public readonly bool                         $shouldQueue,
+        public readonly bool                         $hydrateResult,
+        public readonly EloquentBuilder|QueryBuilder $query,
+        public readonly OutputStyle                  $outputStyle,
+        public readonly string                       $signature,
+        public readonly Closure                     $itemHandler,
+        public Stopwatch                             $stopwatch = new Stopwatch(),
+        public array                                 $idsRange = [],
+    )
     {
-        return $this->job;
-    }
-
-    public function setJob(string $job): JobChunkerDTO
-    {
-        $this->job = $job;
-        return $this;
-    }
-
-    public function getQueue(): string
-    {
-        return $this->queue;
-    }
-
-    public function setQueue(string $queue): JobChunkerDTO
-    {
-        $this->queue = $queue;
-        return $this;
-    }
-
-    public function getSql(): string
-    {
-        return $this->sql;
-    }
-
-    public function setSql(string $sql): JobChunkerDTO
-    {
-        $this->sql = $sql;
-        return $this;
-    }
-
-    public function getModel(): string
-    {
-        return $this->model;
-    }
-
-    public function setModel(string $model): JobChunkerDTO
-    {
-        $this->model = $model;
-        return $this;
-    }
-
-    public function getBindings(): array
-    {
-        return $this->bindings;
-    }
-
-    public function setBindings(array $bindings): JobChunkerDTO
-    {
-        $this->bindings = $bindings;
-        return $this;
-    }
-
-    public function isLogging(): bool
-    {
-        return $this->logging;
-    }
-
-    public function setLogging(bool $logging): JobChunkerDTO
-    {
-        $this->logging = $logging;
-        return $this;
-    }
-
-    public function getBatchSize(): int
-    {
-        return $this->batchSize;
-    }
-
-    public function setBatchSize(int $batchSize): JobChunkerDTO
-    {
-        $this->batchSize = $batchSize;
-        return $this;
-    }
-
-    public function isShouldQueue(): bool
-    {
-        return $this->shouldQueue;
-    }
-
-    public function setShouldQueue(bool $shouldQueue): JobChunkerDTO
-    {
-        $this->shouldQueue = $shouldQueue;
-        return $this;
+        //
     }
 }

@@ -6,9 +6,13 @@ use App\DataContracts\JobChunkerDTO;
 use App\Enums\QueueEnum;
 use App\Jobs\TestJob;
 use App\Models\User;
+use App\Traits\JobChunkerTrait;
+use Illuminate\Console\Command;
 
-class TestCommand extends AbstractChunkerCommand
+class TestCommand extends Command
 {
+    use JobChunkerTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -30,15 +34,22 @@ class TestCommand extends AbstractChunkerCommand
     {
         $query = User::query()->whereNotNull('email');
 
-        $DTO = app(JobChunkerDTO::class)
-            ->setSql($query->toSql())
-            ->setBindings($query->getBindings())
-            ->setJob(TestJob::class)
-            ->setQueue(QueueEnum::default->value)
-            ->setModel(User::class)
-            ->setBatchSize(100)
-            ->setLogging(false)
-            ->setShouldQueue($this->option('queue') ?? false);
+        $handler = function ($item) {
+            sleep(1);
+        };
+
+        $DTO = new JobChunkerDTO(
+            job: TestJob::class,
+            queue: QueueEnum::default->value,
+            logging: true,
+            batchSize: 100,
+            shouldQueue: $this->option('queue') ?? false,
+            hydrateResult: false,
+            query: $query,
+            outputStyle: $this->output,
+            signature: $this->signature,
+            itemHandler: $handler,
+        );
 
         return $this->chunkQueryToJobs($DTO);
     }
