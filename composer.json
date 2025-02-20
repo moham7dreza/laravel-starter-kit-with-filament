@@ -77,6 +77,21 @@
         "quick-test": [
             "Composer\\Config::disableProcessTimeout",
             "vendor/bin/pest --coverage --profile --compact --parallel"
+        ],
+        "reload": [
+            "rm -f bootstrap/cache/*.phpunit.php",
+            "composer install",
+            "php artisan opt:cle"
+        ],
+        "ide-helper": [
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:models",
+            "php artisan ide-helper:meta",
+            "php artisan ide-helper:eloquent"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ]
     },
     "extra": {
