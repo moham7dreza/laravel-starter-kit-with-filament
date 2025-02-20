@@ -72,7 +72,7 @@
         "pint": "./vendor/bin/pint",
         "test-coverage": [
             "Composer\\Config::disableProcessTimeout",
-            "php -dxdebug.coverage_enable=1 -dxdebug.mode=coverage ./vendor/bin/pest --profile --compact --parallel --teamcity --coverage-clover ./tests/Coverage/toprate@tests.xml --configuration ./phpunit.xml ./tests"
+            "php -dxdebug.coverage_enable=1 -dxdebug.mode=coverage ./vendor/bin/pest --profile --compact --parallel --teamcity --coverage-clover ./tests/Coverage/project@tests.xml --configuration ./phpunit.xml ./tests"
         ],
         "quick-test": [
             "Composer\\Config::disableProcessTimeout",

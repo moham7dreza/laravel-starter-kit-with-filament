@@ -54,11 +54,11 @@ class HealthCheckController extends Controller
     public function health()
     {
         return response()->json([
-            'ServiceName' => 'Toprate Api',
+            'ServiceName' => 'project Api',
             'ServiceVersion' => 'v1.0',
             'HostName' => \request()?->getHost(),
             'Time' => Jalalian::now()->format('Y/m/d H:i:s'),
-            'Message' => 'Powered by Toprate Team',
+            'Message' => 'Powered by project Team',
             'Status' => 'healthy'
         ]);
     }

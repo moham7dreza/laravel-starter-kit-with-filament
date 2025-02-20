@@ -31,7 +31,7 @@ class MonitorServiceProvider extends ServiceProvider
             Checks\HorizonCheck::new(),
             Checks\QueueCheck::new(),
             Checks\ScheduleCheck::new(),
-            Checks\PingCheck::new()->url('https://toprate.ir'),
+            Checks\PingCheck::new()->url('https://project.ir'),
             Checks\RedisCheck::new(),
             Checks\RedisMemoryUsageCheck::new(),
             Checks\BackupsCheck::new()->locatedAt('/path/to/backups/*.zip'),

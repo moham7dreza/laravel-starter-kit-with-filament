@@ -43,7 +43,7 @@ mysql -u root -p
 INSTALL COMPONENT "file://component_validate_password";
 #exit
 # 6.5. enable phpmyadmin
-sudo ln -s /usr/share/phpmyadmin /var/www/toprate/phpmyadmin
+sudo ln -s /usr/share/phpmyadmin /var/www/project/phpmyadmin
 # 8 xdebug fix
 sudo nano /etc/php/8.2/fpm/php.ini
 # 8.1 add this line -> xdebug.max_nesting_level = 512 -> if error increase number of frames
@@ -52,25 +52,25 @@ sudo systemctl restart php8.2-fpm
 # ******************************************************************** project setup ****************************************************************
 # 7. project
 # 7.1. make directory and clone project
-sudo mkdir /var/www/toprate
-sudo git clone https://github.com/m-ostadi/toprate.git /var/www/toprate
+sudo mkdir /var/www/project
+sudo git clone https://github.com/username/project.git /var/www/project
 # 7.2. add permissions and change owner
-sudo sh /var/www/toprate/fix-permissions.sh
+sudo sh /var/www/project/fix-permissions.sh
 # 7.3. config nginx
-sudo cp /var/www/toprate/toprate /etc/nginx/sites-available/toprate
+sudo cp /var/www/project /etc/nginx/sites-available/project
 
 sudo unlink /etc/nginx/sites-enabled/default
 sudo nginx -t
 sudo systemctl restart nginx
 # 8. setup mysql -> create a database and user
 sudo mysql
-CREATE DATABASE toprate;
+CREATE DATABASE project;
 CREATE USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-GRANT ALL ON toprate.* TO 'admin'@'%';
+GRANT ALL ON project.* TO 'admin'@'%';
 #exit
 # 9. npm
 sudo apt install npm
-cd /var/www/toprate || exit
+cd /var/www/project || exit
 npm install
 # 9.1. for build required css and js files
 npm run build
@@ -94,7 +94,7 @@ php artisan make:filament-user
 php artisan permissions:sync
 # 17. run with default serve
 php artisan serve
-# 17.1 in local : add dns to /etc/hosts like 127.0.0.1 server_name -> 127.0.0.1 toprate.local
+# 17.1 in local : add dns to /etc/hosts like 127.0.0.1 server_name -> 127.0.0.1 project.local
 sudo nano /etc/hosts
 # 18. run queue system
 php artisan queue:work
