@@ -16,13 +16,11 @@ return new class extends Migration {
             $table->timestamp('created_at')->nullable();
             $table->unsignedInteger('duration')->nullable();
             $table->tinyInteger('type'); // MetricTypeEnum
-            $table->tinyInteger('tracking_type')->nullable()->comment('for tracking specific metrics like some gateways');
-            $table->tinyInteger('requested')->default(0)->comment('the api was called then middleware fills it');
-            $table->tinyInteger('terminated')->default(0)->comment('response returned then middleware updates it');
-//            $table->nullableMorphs('metricable', indexName: 'health_metrics_metricable_index')->comment('for tracking specific entities like some reservations');
             $table->smallInteger('status_code')->nullable();
             $table->string('meta')->nullable();
-            $table->index(['type', 'created_at', 'tracking_type']);
+            $table->json('data')->nullable();
+            $table->index(['type', 'tracking_type']);
+            $table->index(['type', 'meta']);
         });
     }
 
