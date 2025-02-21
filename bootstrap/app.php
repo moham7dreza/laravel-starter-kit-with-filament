@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Sentry\Laravel\Integration;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,5 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        Integration::handles($exceptions);
-    })->create();
+        //
+    })
+    ->withSchedule(function (Schedule $schedule) {
+
+        $schedule->call(fn() => cache()->put('schedule-last-execution', now(), 1440))->everyMinute()
+            ->name('health-check')->withoutOverlapping();
+
+    })
+    ->create();
