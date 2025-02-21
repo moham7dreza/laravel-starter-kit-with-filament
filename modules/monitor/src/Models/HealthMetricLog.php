@@ -13,34 +13,23 @@ class HealthMetricLog extends Model
     use HasFactory;
     use Prunable;
 
-    public const REQUESTED = 1;
-    public const TERMINATED = 1;
-    public const UPDATED_AT = null;
     protected $fillable = [
         'user_id',
         'created_at',
         'duration',
         'type',
-        'tracking_type',
-        'metricable_id',
-        'metricable_type',
         'status_code',
-        'terminated',
-        'requested',
-        'meta'
+        'meta',
+        'data',
     ];
-    protected $casts = [
-        'type' => MetricTypeEnum::class,
-    ];
+    public const UPDATED_AT = null;
 
-    public function scopeRequested($query)
+    protected function casts(): array
     {
-        return $query->where('requested', self::REQUESTED);
-    }
-
-    public function scopeTerminated($query)
-    {
-        return $query->where('terminated', self::TERMINATED);
+        return [
+            'type' => MetricTypeEnum::class,
+            'data' => 'json'
+        ];
     }
 
     /**

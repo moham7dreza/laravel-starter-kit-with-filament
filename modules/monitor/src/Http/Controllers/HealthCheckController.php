@@ -22,31 +22,26 @@ class HealthCheckController extends Controller
             'internal' => 'in:0,1',
             'productive' => 'in:0,1',
             'sms' => 'in:0,1',
-            'request' => 'in:0,1',
             'gateways' => 'in:0,1',
         ]);
 
-        $registry = app(CollectorRegistry::class, ['storageAdapter' => new InMemory()]);
+        $result = cache()->remember('prometheus-metrics', config('metrics.cache-ttl'), function () {
+            $registry = app(CollectorRegistry::class, ['storageAdapter' => new InMemory()]);
 
-        if (request('internal') ?? config('metrics.internal_services_enabled')) {
-            $this->healthCheckService->registerInternalServiceMetrics($registry);
-        }
+            if (request('internal') ?? config('metrics.internal-services-enabled')) {
+                $this->healthCheckService->registerInternalServiceMetrics($registry);
+            }
 
-        if (request('productive') ?? config('metrics.productive_enabled')) {
-            $this->healthCheckService->registerProductiveMetrics($registry);
-        }
+            if (request('productive') ?? config('metrics.productive-enabled')) {
+                $this->healthCheckService->registerProductiveMetrics($registry);
+            }
 
-        if (request('sms') ?? config('metrics.sms_enabled')) {
-//            $this->healthCheckService->registerSmsMetrics($registry);
-        }
+            if (request('sms') ?? config('metrics.sms-enabled')) {
+                $this->healthCheckService->registerSmsMetrics($registry);
+            }
 
-        $renderer = app(RenderTextFormat::class);
-
-        $result = cache()->remember('prometheus_metrics_result',
-            config('metrics.cache-ttl'),
-            function () use ($renderer, $registry) {
-                return $renderer->render($registry->getMetricFamilySamples());
-            });
+            return app(RenderTextFormat::class)->render($registry->getMetricFamilySamples());
+        });
 
         return response($result)->header('Content-Type', 'text/plain');
     }

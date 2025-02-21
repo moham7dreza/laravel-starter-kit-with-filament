@@ -19,8 +19,6 @@ class BanUserMiddleware
         if ($user && $user->is_banned) {
             auth()->logout();
 
-            // todo revoke user access tokens
-
             return redirect()->to('/')->with('error', 'your account is banned');
         }
 
