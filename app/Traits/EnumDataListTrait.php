@@ -35,4 +35,14 @@ trait EnumDataListTrait
     {
         return self::totalCases()->random();
     }
+
+    public static function joinValues(): string
+    {
+        return collect(self::values())->implode(',');
+    }
+
+    public static function count(): int
+    {
+        return self::totalCases()->count();
+    }
 }

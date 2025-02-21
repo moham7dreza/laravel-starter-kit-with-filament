@@ -17,7 +17,7 @@ class OnlyAllowDevelopersMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $mobile = getUser()?->mobile;
-        if ($mobile && in_array($mobile, config('developer.backends'))) {
+        if ($mobile && in_array($mobile, config('developer.backends'), true)) {
             return $next($request);
         }
         abort(HttpResponse::HTTP_NOT_FOUND);

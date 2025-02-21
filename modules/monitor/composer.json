@@ -1,44 +1,44 @@
 {
-  "name": "modules/monitor",
-  "description": "",
-  "type": "library",
-  "version": "1.0",
-  "license": "proprietary",
-  "require": {
-    "laravel/horizon": "^5.22",
-    "laravel/pulse": "^1.2.4",
-    "laravel/telescope": "^5.0",
-    "opcodesio/log-viewer": "^3.0",
-    "sentry/sentry-laravel": "^4.2",
-    "spatie/laravel-backup": "^8.5",
-    "spatie/laravel-health": "^1.24",
-    "spatie/laravel-prometheus": "^1.0",
-    "spatie/laravel-activitylog": "^4.8"
-  },
-  "require-dev": {
-    "barryvdh/laravel-debugbar": "^3.9",
-    "barryvdh/laravel-ide-helper": "^3.1.0",
-    "roave/security-advisories": "dev-latest"
-  },
-  "autoload": {
-    "psr-4": {
-      "Modules\\Monitor\\": "src/",
-      "Modules\\Monitor\\Tests\\": "tests/",
-      "Modules\\Monitor\\Database\\Factories\\": "database/factories/",
-      "Modules\\Monitor\\Database\\Seeders\\": "database/seeders/"
+    "name": "modules/monitor",
+    "description": "",
+    "type": "library",
+    "version": "1.0",
+    "license": "proprietary",
+    "require": {
+        "ext-mongodb": "*",
+        "laravel/horizon": "^5.22",
+        "laravel/pulse": "^1.2.4",
+        "laravel/telescope": "^5.0",
+        "opcodesio/log-viewer": "^3.0",
+        "spatie/laravel-backup": "^8.5",
+        "spatie/laravel-health": "^1.24",
+        "spatie/laravel-prometheus": "^1.0",
+        "spatie/laravel-activitylog": "^4.8"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
+        "barryvdh/laravel-ide-helper": "^3.1.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Monitor\\": "src/",
+            "Modules\\Monitor\\Tests\\": "tests/",
+            "Modules\\Monitor\\Database\\Factories\\": "database/factories/",
+            "Modules\\Monitor\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Monitor\\Providers\\MonitorServiceProvider",
+                "Modules\\Monitor\\Providers\\CommandLoggingServiceProvider",
+                "Modules\\Monitor\\Providers\\HorizonServiceProvider",
+                "Modules\\Monitor\\Providers\\JobLoggingServiceProvider",
+                "Modules\\Monitor\\Providers\\PrometheusServiceProvider",
+                "Modules\\Monitor\\Providers\\TelescopeServiceProvider"
+            ]
+        }
     }
-  },
-  "minimum-stability": "stable",
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Modules\\Monitor\\Providers\\MonitorServiceProvider",
-        "Modules\\Monitor\\Providers\\CommandLoggingServiceProvider",
-        "Modules\\Monitor\\Providers\\HorizonServiceProvider",
-        "Modules\\Monitor\\Providers\\JobLoggingServiceProvider",
-        "Modules\\Monitor\\Providers\\PrometheusServiceProvider",
-        "Modules\\Monitor\\Providers\\TelescopeServiceProvider"
-      ]
-    }
-  }
 }
