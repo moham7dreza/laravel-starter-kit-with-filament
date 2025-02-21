@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="config" type="PestRunConfigurationType" editBeforeRun="true"
+                   focusToolWindowBeforeRun="true" singleton="false">
+        <option name="envFilePaths">
+            <list>
+                <option value="$PROJECT_DIR$/.env.testing"/>
+            </list>
+        </option>
+        <option name="pestRunnerSettings">
+            <PestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" method="" scope="ConfigurationFile"
+                        options="--coverage --profile --compact --parallel --teamcity"
+                        use_alternative_configuration_file="true"/>
+        </option>
+        <method v="2"/>
+    </configuration>
+</component>
