@@ -2,6 +2,8 @@
 
 namespace Modules\Monitor\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Monitor\Database\Factories\SMSLogFactory;
 use Modules\Monitor\Enums\SmsMessageTypeEnum;
 use Modules\Monitor\Enums\SmsProviderEnum;
 use Modules\Monitor\Enums\SmsStatusEnum;
@@ -26,5 +28,10 @@ class SmsLog extends Model
             'sent_at' => 'datetime',
             'delivered_at' => 'datetime',
         ];
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return SMSLogFactory::new();
     }
 }

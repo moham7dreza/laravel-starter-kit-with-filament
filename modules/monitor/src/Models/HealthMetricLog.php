@@ -3,9 +3,11 @@
 namespace Modules\Monitor\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
+use Modules\Monitor\Database\Factories\HealthMetricLogFactory;
 use Modules\Monitor\Enums\MetricTypeEnum;
 
 class HealthMetricLog extends Model
@@ -30,6 +32,11 @@ class HealthMetricLog extends Model
             'type' => MetricTypeEnum::class,
             'data' => 'json'
         ];
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return HealthMetricLogFactory::new();
     }
 
     /**
