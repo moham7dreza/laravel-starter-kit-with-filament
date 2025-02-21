@@ -23,14 +23,38 @@ class HealthMetricLogFactory extends Factory
             'user_id' => User::factory(),
             'duration' => $this->faker->numberBetween(100, 1000),
             'type' => $type = MetricTypeEnum::random(),
-            'tracking_type' => $this->faker->randomElement([]),
-            //            'metricable_id' => Payment::factory(),
-            //            'metricable_type' => Payment::class,
-            'status_code' => $this->faker->randomElement([HttpResponse::HTTP_OK, HttpResponse::HTTP_CREATED, HttpResponse::HTTP_FORBIDDEN]),
-            'requested' => true,
-            'terminated' => $this->faker->boolean,
-            'meta' => in_array($type, [MetricTypeEnum::login_otp, MetricTypeEnum::verify_otp], true)
-                ? fake()->randomElement($this->mobiles) : null,
+            'status_code' => $this->faker->randomElement([\HttpResponse::HTTP_OK, \HttpResponse::HTTP_CREATED, \HttpResponse::HTTP_FORBIDDEN]),
+            'meta' => match ($type) {
+                MetricTypeEnum::login_otp, MetricTypeEnum::verify_otp => fake()->randomElement($this->mobiles),
+                default => null,
+            },
         ];
+    }
+
+    public function success(): static
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status_code' => \HttpResponse::HTTP_OK,
+            ];
+        });
+    }
+
+    public function timeout(): static
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status_code' => \HttpResponse::HTTP_REQUEST_TIMEOUT,
+            ];
+        });
+    }
+
+    public function failed(): static
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status_code' => \HttpResponse::HTTP_INTERNAL_SERVER_ERROR,
+            ];
+        });
     }
 }
